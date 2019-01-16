@@ -44,13 +44,13 @@ class App extends Component {
     let msg = '';
 
     if (hours >= 0 && hours < 12) {
-      greet = 'Rise and shine, Pat!';
+      greet = 'Rise and shine!';
       msg = 'What are we doing this morning?';
     } else if (hours >= 12 && hours < 17) {
-      greet = "It's a bright, beautiful day, Pat!";
+      greet = "It's a bright, beautiful day!";
       msg = 'What are we doing this afternoon?';
     } else {
-      greet = "Shut 'er down, Pat.";
+      greet = "Shut 'er down!";
       msg = "What's going on this evening?";
     }
     this.setState({
