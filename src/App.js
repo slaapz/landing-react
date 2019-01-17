@@ -12,7 +12,8 @@ class App extends Component {
       time: new Date().toLocaleTimeString(),
       greet: '',
       msg: '',
-      img: ''
+      img: '',
+      tasks: []
     };
 
     this.images = [
@@ -27,18 +28,22 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const tasks = this.getTasks;
     this.setState({
-      img: this.images[Math.floor(Math.random() * 7)]
+      img: this.images[Math.floor(Math.random() * 7)],
+      tasks
     });
     this.clockIntervalID = setInterval(() => this.tick(), 1000);
     this.imgIntervalID = setInterval(() => this.shuffle(), 1800000);
+
+    console.log(this.state);
   }
 
   componentWillMount() {
     clearInterval(this.clockIntervalID);
   }
 
-  tick() {
+  tick = () => {
     const hours = new Date().getHours();
     let greet = '';
     let msg = '';
@@ -58,15 +63,17 @@ class App extends Component {
       greet,
       msg
     });
-  }
+  };
+  getTasks = () => {
+    return JSON.parse(localStorage.getItem('tasks'));
+  };
 
-  shuffle() {
+  shuffle = () => {
     const imgIndex = Math.floor(Math.random() * 7);
     this.setState({
       img: this.images[imgIndex]
     });
-    console.log(this.state.img);
-  }
+  };
 
   render() {
     const style = {
