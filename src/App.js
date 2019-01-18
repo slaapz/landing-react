@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import './App.css';
 
 import Clock from './components/clock/Clock';
 import Greeting from './components/greeting/Greeting';
 import Message from './components/message/Message';
+import Taskform from './components/tasks/Taskform';
+import Tasklist from './components/tasks/Tasklist';
 
 class App extends Component {
   constructor() {
@@ -28,19 +31,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const tasks = this.getTasks;
+    let tasks = JSON.parse(window.localStorage.getItem('tasks'));
+    if (!tasks) {
+      console.log('Empty Array');
+    } else {
+      this.setState({ tasks: tasks });
+    }
     this.setState({
-      img: this.images[Math.floor(Math.random() * 7)],
-      tasks
+      img: this.images[Math.floor(Math.random() * 7)]
     });
     this.clockIntervalID = setInterval(() => this.tick(), 1000);
     this.imgIntervalID = setInterval(() => this.shuffle(), 1800000);
-
-    console.log(this.state);
   }
 
   componentWillMount() {
     clearInterval(this.clockIntervalID);
+    clearInterval(this.imgIntervalID);
   }
 
   tick = () => {
@@ -65,7 +71,26 @@ class App extends Component {
     });
   };
   getTasks = () => {
-    return JSON.parse(localStorage.getItem('tasks'));
+    const tasks = localStorage.getItem(JSON.parse('tasks'));
+    return tasks;
+  };
+
+  addTask = text => {
+    const item = {
+      id: uniqid(),
+      text
+    };
+    let tasks = this.state.tasks;
+    tasks.push(item);
+    window.localStorage.setItem('tasks', JSON.stringify(tasks));
+  };
+
+  deleteTask = id => {
+    console.log(id);
+    let tasks = this.state.tasks.filter(task => task.id !== id);
+    console.log(tasks);
+    this.setState({ tasks });
+    window.localStorage.setItem('tasks', JSON.stringify(tasks));
   };
 
   shuffle = () => {
@@ -82,9 +107,13 @@ class App extends Component {
     return (
       <header style={style}>
         <div id="opacity">
-          <Clock data={this.state.time} />
-          <Greeting greet={this.state.greet} />
-          <Message msg={this.state.msg} />
+          <div id="display">
+            <Clock data={this.state.time} />
+            <Greeting greet={this.state.greet} />
+            <Message msg={this.state.msg} />
+          </div>
+          <Taskform addTask={this.addTask} />
+          <Tasklist deleteTask={this.deleteTask} tasks={this.state.tasks} />
         </div>
       </header>
     );

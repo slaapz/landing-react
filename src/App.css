@@ -11,9 +11,67 @@ header {
   background-size: cover;
 }
 
+ul {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+ul li {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-family: 'Pangolin', cursive;
+  font-size: 1.5rem;
+  color: #00ff00;
+  text-shadow: 5px 5px 10px #000;
+}
+
+label {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  text-shadow: 5px 5px 10px #000;
+}
+
+input {
+  width: 100%;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  color: #00ff00;
+  text-shadow: 5px 5px 10px #000;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid #fff;
+}
+
+input:focus {
+  border: none;
+  border-bottom: 3px solid #fff;
+  background-color: transparent;
+}
+
+span.delete {
+  float: right;
+  background-color: transparent;
+  color: #00ff00;
+}
+
+span.delete:hover {
+  cursor: pointer;
+  color: #ff0000;
+}
+
 #opacity {
   background-color: rgba(255, 255, 255, 0.247);
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}
+
+#display {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,4 +100,19 @@ header {
   font-size: 2rem;
   margin: 0;
   text-shadow: 5px 5px 10px #000;
+}
+
+.form-div {
+  width: 50%;
+}
+.form-group {
+  margin-top: 3rem;
+  font-family: 'Pangolin', cursive;
+}
+
+.tasklist {
+  width: 50%;
+  margin-top: 0.75rem;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
